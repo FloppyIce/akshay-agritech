@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5fff0;
+            color: #2d572c;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            max-width: 400px;
+            text-align: left;
+        }
+        h2 {
+            text-align: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bank & Location Setup</h2>
+        <form id="bankSetupForm">
+            <label for="bankName">Bank Name:</label>
+            <input type="text" id="bankName" name="bankName" placeholder="Enter bank name" required>
+            
+            <label for="accountNumber">Account Number:</label>
+            <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
+            <div class="error" id="accountError"></div>
+            
+            <label for="location">Delivery Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter your address" required>
+            
+            <button type="submit">Complete Setup</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("bankSetupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const accountNumber = document.getElementById("accountNumber").value;
+            const accountError = document.getElementById("accountError");
+            
+            accountError.textContent = "";
+            
+            if (!/^[0-9]{10,18}$/.test(accountNumber)) {
+                accountError.textContent = "Invalid account number. Must be 10-18 digits.";
+                return;
+            }
+            
+            alert("Bank details and location saved successfully!");
+            window.location.href = "confirmation.html";
+        });
+    </script>
+</body>
+</html>

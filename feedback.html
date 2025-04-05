@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --form-bg: #f9f9f9;
+            --input-bg: #fff;
+            --button-bg: #28a745;
+            --button-hover: #218838;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #f5f5f5;
+            --form-bg: #1e1e1e;
+            --input-bg: #2c2c2c;
+            --button-bg: #00c853;
+            --button-hover: #009624;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            background: var(--form-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: var(--button-bg);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: var(--button-hover);
+        }
+
+        .message {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Feedback Form</h2>
+        <form id="feedbackForm">
+            <input type="email" id="userEmail" placeholder="Your Email" required>
+            <textarea id="feedbackText" placeholder="Your Feedback" rows="4" required></textarea>
+            <button type="submit">Send Feedback</button>
+        </form>
+        <p class="message" id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById("feedbackForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            
+            const email = document.getElementById("userEmail").value;
+            const feedback = document.getElementById("feedbackText").value;
+            
+            const response = await fetch("http://localhost:3001/send-feedback", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, feedback })
+            });
+            
+            const result = await response.json();
+            document.getElementById("message").textContent = result.success || result.error;
+        });
+
+        // Apply theme from website-settings.html
+        fetch("website-settings.html")
+            .then(response => response.text())
+            .then(html => {
+                if (html.includes("dark-mode")) {
+                    document.body.classList.add("dark-mode");
+                }
+            })
+            .catch(error => console.error("Error loading settings:", error));
+    </script>
+</body>
+</html>

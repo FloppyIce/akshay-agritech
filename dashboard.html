@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5fff0;
+            color: #2d572c;
+            text-align: center;
+            padding: 50px;
+        }
+        .banner {
+            width: 100%;
+            height: 200px;
+            background: url('download.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            max-width: 600px;
+        }
+        h2 {
+            color: #216421;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner"></div>
+    <div class="container">
+        <h2 id="welcomeMessage">Welcome to Your Dashboard</h2>
+        <p>Manage your account, transactions, and settings below.</p>
+        <div class="button-container">
+            <button onclick="window.location.href='transactions.html'">View Transactions</button>
+            <button onclick="window.location.href='settings.html'">Account Settings</button>
+            <button onclick="window.location.href='feedback.html'">Give Feedback</button>
+            <button onclick="window.location.href='website-settings.html'">Website Settings & Theme</button>
+            <button onclick="window.location.href='NAN'">Log Out</button>
+            <button onclick="window.location.href='2ndOptCS.html'">Give Feedback Manually</button> <!-- New button -->
+        </div>
+    </div>
+    
+    <script>
+        // Load saved theme
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                document.body.style.backgroundColor = savedTheme;
+            }
+            
+            // Load and display user's name
+            const userName = localStorage.getItem("userName");
+            if (userName) {
+                document.getElementById("welcomeMessage").innerText = `Welcome to Your Dashboard, ${userName}`;
+            }
+        });
+    </script>
+</body>
+</html>

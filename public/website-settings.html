@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Settings & Theme</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5fff0;
+            color: #2d572c;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            max-width: 400px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Website Settings & Theme</h2>
+        <label for="themeSelect">Choose Theme:</label>
+        <select id="themeSelect">
+            <option value="#f5fff0">Light Green</option>
+            <option value="#1e1e1e">Dark Mode</option>
+            <option value="#ffffff">White</option>
+            <option value="#ffefd5">Soft Peach</option>
+        </select>
+        <button onclick="saveSettings()">Save Settings</button>
+        <button onclick="resetSettings()">Reset to Default</button>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                document.body.style.backgroundColor = savedTheme;
+                document.getElementById("themeSelect").value = savedTheme;
+            }
+        });
+        
+        function saveSettings() {
+            const selectedTheme = document.getElementById("themeSelect").value;
+            localStorage.setItem("theme", selectedTheme);
+            document.body.style.backgroundColor = selectedTheme;
+            alert("Settings saved!");
+        }
+
+        function resetSettings() {
+            localStorage.removeItem("theme");
+            document.body.style.backgroundColor = "#f5fff0";
+            document.getElementById("themeSelect").value = "#f5fff0";
+            alert("Settings reset to default!");
+        }
+    </script>
+</body>
+</html>
